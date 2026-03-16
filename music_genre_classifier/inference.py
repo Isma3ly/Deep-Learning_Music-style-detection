@@ -135,7 +135,7 @@ def _prepare_features_for_inference(
 
 def predict_genre_from_file(
     wav_path: str,
-    model_weights: str = "DNN3.h5",
+    model_weights: str = "DNN3.weights.h5",
     pca_path: str = "pca",
     filler_track_path: str | None = None,
 ) -> Tuple[str, float, str]:

@@ -3,14 +3,15 @@ from __future__ import annotations
 from typing import Optional
 
 import numpy as np
-from tensorflow.keras.layers import Dense, Dropout
-from tensorflow.keras.models import Sequential
+from keras.layers import Dense, Dropout, Input
+from keras.models import Sequential
 
 
 def build_dnn_model(input_dim: int = 215, n_classes: int = 10) -> Sequential:
     """Build the dense neural network used for genre classification."""
     model = Sequential()
-    model.add(Dense(512, input_dim=input_dim, activation="relu"))
+    model.add(Input(shape=(input_dim,)))
+    model.add(Dense(512, activation="relu"))
     model.add(Dropout(0.4))
     model.add(Dense(512, activation="relu"))
     model.add(Dropout(0.4))
@@ -27,7 +28,7 @@ def build_dnn_model(input_dim: int = 215, n_classes: int = 10) -> Sequential:
 
 
 def load_trained_model(
-    weights_path: str = "DNN3.h5",
+    weights_path: str = "DNN3.weights.h5",
     input_dim: int = 215,
     n_classes: int = 10,
 ) -> Sequential:

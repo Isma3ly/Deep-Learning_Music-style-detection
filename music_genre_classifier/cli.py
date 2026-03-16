@@ -15,7 +15,7 @@ def main(argv=None):
     parser.add_argument(
         "--models-dir",
         default="models",
-        help="Directory containing DNN3.h5 and pca (default: models)",
+        help="Directory containing DNN3.weights.h5 and pca (default: models)",
     )
     parser.add_argument(
         "--filler-track",
@@ -25,11 +25,11 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     models_dir = Path(args.models_dir)
-    weights_path = models_dir / "DNN3.h5"
+    weights_path = models_dir / "DNN3.weights.h5"
     pca_path = models_dir / "pca"
 
     if not weights_path.exists() or not pca_path.exists():
-        print("Error: Model files not found. Run the training notebook (notebooks/02_train_model.ipynb) first, or set --models-dir to the folder containing DNN3.h5 and pca.", file=sys.stderr)
+        print("Error: Model files not found. Run the training notebook (notebooks/02_train_model.ipynb) first, or set --models-dir to the folder containing DNN3.weights.h5 and pca.", file=sys.stderr)
         sys.exit(1)
 
     filler = args.filler_track if args.filler_track is not None else DEFAULT_FILLER_TRACK
