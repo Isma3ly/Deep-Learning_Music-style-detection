@@ -7,7 +7,7 @@ from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.models import Sequential
 
 
-def build_dnn_model(input_dim: int = 215, n_classes: int = 8) -> Sequential:
+def build_dnn_model(input_dim: int = 215, n_classes: int = 10) -> Sequential:
     """Build the dense neural network used for genre classification."""
     model = Sequential()
     model.add(Dense(512, input_dim=input_dim, activation="relu"))
@@ -29,7 +29,7 @@ def build_dnn_model(input_dim: int = 215, n_classes: int = 8) -> Sequential:
 def load_trained_model(
     weights_path: str = "DNN3.h5",
     input_dim: int = 215,
-    n_classes: int = 8,
+    n_classes: int = 10,
 ) -> Sequential:
     """Build the DNN model and load pre-trained weights."""
     model = build_dnn_model(input_dim=input_dim, n_classes=n_classes)
