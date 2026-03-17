@@ -7,7 +7,12 @@ from keras.layers import Dense, Dropout, Input
 from keras.models import Sequential
 
 
-def build_dnn_model(input_dim: int = 215, n_classes: int = 10) -> Sequential:
+def build_dnn_model(
+    input_dim: int = 215,
+    n_classes: int = 10,
+    *,
+    compile_model: bool = True,
+) -> Sequential:
     """Build the dense neural network used for genre classification."""
     model = Sequential()
     model.add(Input(shape=(input_dim,)))
@@ -19,11 +24,12 @@ def build_dnn_model(input_dim: int = 215, n_classes: int = 10) -> Sequential:
     model.add(Dropout(0.6))
     model.add(Dense(n_classes, activation="softmax"))
 
-    model.compile(
-        optimizer="nadam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"],
-    )
+    if compile_model:
+        model.compile(
+            optimizer="nadam",
+            loss="sparse_categorical_crossentropy",
+            metrics=["accuracy"],
+        )
     return model
 
 
@@ -32,8 +38,8 @@ def load_trained_model(
     input_dim: int = 215,
     n_classes: int = 10,
 ) -> Sequential:
-    """Build the DNN model and load pre-trained weights."""
-    model = build_dnn_model(input_dim=input_dim, n_classes=n_classes)
+    """Build the DNN model and load pre-trained weights (for inference; no optimizer)."""
+    model = build_dnn_model(input_dim=input_dim, n_classes=n_classes, compile_model=False)
     model.load_weights(weights_path)
     return model
 

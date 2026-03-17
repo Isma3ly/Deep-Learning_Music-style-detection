@@ -97,19 +97,19 @@ GENRE_NAMES = GENRES.copy()
 
 
 def prediction_confidence(probs: np.ndarray) -> str:
-    """Map max probability to a French confidence phrase."""
+    """Map max probability to a short English confidence label (prefix for genre)."""
     c = float(np.max(probs))
     if c < 0.25:
-        return "Pas sûr mais je pense que ça soit du "
+        return "Low confidence: "
     elif c < 0.35:
-        return "On sent le "
+        return "Possible: "
     elif c < 0.45:
-        return "Je suis un peu confiant que ça soit "
+        return "Moderate: "
     elif c < 0.60:
-        return "Je suis confiant que ça soit "
+        return "Confident: "
     elif c < 0.70:
-        return "Je suis très sûr que ça soit "
-    return "100% sûr que c'est du "
+        return "High confidence: "
+    return "Very high confidence: "
 
 
 def load_pca(path: str = "pca"):
